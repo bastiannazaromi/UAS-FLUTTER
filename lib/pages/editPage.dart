@@ -65,7 +65,7 @@ class _EditPageState extends State<EditPage> {
     };
 
     final response = await client.post(
-      Uri.parse('http://192.168.21.55/ppb/edit.php'),
+      Uri.parse('http://192.168.33.7/ppb/edit.php'),
       body: body,
     );
 

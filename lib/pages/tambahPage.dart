@@ -57,7 +57,7 @@ class _TambahPageState extends State<TambahPage> {
     };
 
     final response = await client.post(
-      Uri.parse('http://192.168.21.55/ppb/tambah.php'),
+      Uri.parse('http://192.168.33.7/ppb/tambah.php'),
       body: body,
     );
 

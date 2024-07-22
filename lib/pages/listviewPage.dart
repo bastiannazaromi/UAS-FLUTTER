@@ -11,20 +11,20 @@ import 'package:uas00045/widgets/itemWidget.dart';
 
 import 'package:http/http.dart' as client;
 
-class FirebasePage extends StatefulWidget {
-  const FirebasePage({super.key});
+class ListviewPage extends StatefulWidget {
+  const ListviewPage({super.key});
 
   @override
-  State<FirebasePage> createState() => _FirebasePageState();
+  State<ListviewPage> createState() => _ListviewPageState();
 }
 
-class _FirebasePageState extends State<FirebasePage> {
-  Stream<QuerySnapshot>? tikets =
+class _ListviewPageState extends State<ListviewPage> {
+  Stream<QuerySnapshot>? materialBarangs =
       FirebaseFirestore.instance.collection('materialbarang').snapshots();
 
   Future<SuccessModel> deleteData(String kode_barang) async {
     final response = await client
-        .post(Uri.parse('http://192.168.21.55/ppb/hapus.php'), body: {
+        .post(Uri.parse('http://192.168.33.7/ppb/hapus.php'), body: {
       'kode_barang': kode_barang,
     });
 
@@ -44,7 +44,7 @@ class _FirebasePageState extends State<FirebasePage> {
         ),
       ),
       body: StreamBuilder(
-        stream: tikets,
+        stream: materialBarangs,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

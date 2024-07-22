@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uas00045/pages/firebasePage.dart';
+import 'package:uas00045/pages/listviewPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const FirebasePage(),
+                            builder: (context) => const ListviewPage(),
                           ));
                     },
                     child: const Text(
