@@ -10,9 +10,9 @@ import 'package:http/http.dart' as client;
 import '../utils/successModel.dart';
 
 class EditPage extends StatefulWidget {
-  final MaterialBarang materialBarang;
-  final bool isFirebase;
-  final String idFirebase;
+  final MaterialBarang materialBarang; // Data material barang yang akan diedit
+  final bool isFirebase; // Menentukan apakah menggunakan Firebase
+  final String idFirebase; // ID dokumen di Firebase
   const EditPage({
     super.key,
     required this.materialBarang,
@@ -35,6 +35,7 @@ class _EditPageState extends State<EditPage> {
   @override
   void initState() {
     super.initState();
+    // Inisialisasi field dengan data yang ada
     kode_barang?.text = widget.materialBarang.kode_barang;
     nama?.text = widget.materialBarang.nama;
     satuan?.text = widget.materialBarang.satuan;
@@ -46,6 +47,7 @@ class _EditPageState extends State<EditPage> {
   @override
   void dispose() {
     super.dispose();
+    // Dispose controller untuk menghindari memory leaks
     kode_barang?.dispose();
     nama?.dispose();
     satuan?.dispose();
@@ -54,6 +56,7 @@ class _EditPageState extends State<EditPage> {
     terjual?.dispose();
   }
 
+  // Fungsi untuk mengupdate data ke server menggunakan HTTP POST request
   Future<SuccessModel> updateData() async {
     Map<String, dynamic> body = {
       "kode_barang": widget.materialBarang.kode_barang,
@@ -76,6 +79,7 @@ class _EditPageState extends State<EditPage> {
     }
   }
 
+  // Fungsi untuk mengupdate data ke Firebase Firestore
   void updateDataFirebase() async {
     var collection = FirebaseFirestore.instance.collection('materialbarang');
     collection.doc(widget.idFirebase).update({
@@ -85,13 +89,14 @@ class _EditPageState extends State<EditPage> {
       'stok': stok?.text,
       'terjual': terjual?.text,
     }).then((value) {
-      updateData();
+      updateData(); // Panggil fungsi updateData untuk menyimpan perubahan ke server lokal
 
       Fluttertoast.showToast(
         msg: "Berhasil edit data",
         backgroundColor: Colors.black,
       );
-      Navigator.pop(context);
+      Navigator.pop(
+          context); // Kembali ke halaman sebelumnya setelah data berhasil diupdate
     }).catchError((error) {
       Fluttertoast.showToast(
         msg: 'Gagal edit data',

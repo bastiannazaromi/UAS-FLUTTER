@@ -8,14 +8,17 @@ import 'package:http/http.dart' as client;
 
 import '../utils/successModel.dart';
 
+// Deklarasi class TambahPage sebagai StatefulWidget
 class TambahPage extends StatefulWidget {
-  final bool isFirebase;
+  final bool
+      isFirebase; // Parameter untuk menentukan apakah menggunakan Firebase
   const TambahPage({super.key, required this.isFirebase});
 
   @override
   State<TambahPage> createState() => _TambahPageState();
 }
 
+// Deklarasi state untuk TambahPage
 class _TambahPageState extends State<TambahPage> {
   TextEditingController? kode_barang;
   TextEditingController? nama;
@@ -27,6 +30,7 @@ class _TambahPageState extends State<TambahPage> {
   @override
   void initState() {
     super.initState();
+    // Inisialisasi TextEditingController untuk masing-masing field input
     kode_barang = TextEditingController();
     nama = TextEditingController();
     satuan = TextEditingController();
@@ -38,6 +42,7 @@ class _TambahPageState extends State<TambahPage> {
   @override
   void dispose() {
     super.dispose();
+    // Dispose controller untuk menghindari memory leaks
     kode_barang?.dispose();
     nama?.dispose();
     satuan?.dispose();
@@ -46,6 +51,7 @@ class _TambahPageState extends State<TambahPage> {
     terjual?.dispose();
   }
 
+  // Fungsi untuk menambah data ke server menggunakan HTTP POST request
   Future<SuccessModel> addData() async {
     Map<String, dynamic> body = {
       "kode_barang": kode_barang?.text ?? '',
@@ -68,6 +74,7 @@ class _TambahPageState extends State<TambahPage> {
     }
   }
 
+  // Fungsi untuk menambah data ke Firebase Firestore
   void addDataFirebase() async {
     var collection = FirebaseFirestore.instance.collection('materialbarang');
     collection.add({
@@ -78,10 +85,11 @@ class _TambahPageState extends State<TambahPage> {
       'stok': stok?.text,
       'terjual': terjual?.text,
     }).then((value) {
-      addData();
+      addData(); // Panggil fungsi addData untuk menyimpan data ke server lokal
 
       Fluttertoast.showToast(msg: "Berhasil Tambah Material Barang");
-      Navigator.pop(context);
+      Navigator.pop(
+          context); // Kembali ke halaman sebelumnya setelah data berhasil ditambahkan
     }).catchError((onError) {
       Fluttertoast.showToast(
           msg: 'Gagal Tambah Material Barang',
@@ -103,6 +111,7 @@ class _TambahPageState extends State<TambahPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Input field untuk Kode Barang
               const Text(
                 "Kode Barang",
                 textAlign: TextAlign.start,
@@ -138,6 +147,7 @@ class _TambahPageState extends State<TambahPage> {
                 ),
               ),
               const SizedBox(height: 10),
+              // Input field untuk Nama Material Barang
               const Text(
                 "Nama Material Barang",
                 textAlign: TextAlign.start,
@@ -173,6 +183,7 @@ class _TambahPageState extends State<TambahPage> {
                 ),
               ),
               const SizedBox(height: 10),
+              // Input field untuk Satuan
               const Text(
                 "Satuan",
                 textAlign: TextAlign.start,
@@ -208,6 +219,7 @@ class _TambahPageState extends State<TambahPage> {
                 ),
               ),
               const SizedBox(height: 10),
+              // Input field untuk Tanggal
               const Text(
                 "Tanggal",
                 textAlign: TextAlign.start,
@@ -243,6 +255,7 @@ class _TambahPageState extends State<TambahPage> {
                 ),
               ),
               const SizedBox(height: 10),
+              // Input field untuk Stok
               const Text(
                 "Stok",
                 textAlign: TextAlign.start,
@@ -278,6 +291,7 @@ class _TambahPageState extends State<TambahPage> {
                 ),
               ),
               const SizedBox(height: 10),
+              // Input field untuk Terjual
               const Text(
                 "Terjual",
                 textAlign: TextAlign.start,
@@ -313,6 +327,7 @@ class _TambahPageState extends State<TambahPage> {
                 ),
               ),
               const SizedBox(height: 30),
+              // Button untuk menambah data
               ButtonWidget(
                 title: 'TAMBAH',
                 onTap: () async {

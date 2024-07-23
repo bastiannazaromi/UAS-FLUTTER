@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uas00045/pages/listviewPage.dart';
 
+// Deklarasi class HomePage sebagai StatefulWidget
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -8,9 +9,11 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+// Deklarasi state untuk HomePage
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    // Membuat tampilan Scaffold
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -22,6 +25,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Container untuk menampilkan informasi data mahasiswa
             Container(
               margin: const EdgeInsets.all(10),
               padding: const EdgeInsets.symmetric(
@@ -46,6 +50,7 @@ class _HomePageState extends State<HomePage> {
               child: const Column(
                 children: [
                   SizedBox(height: 10),
+                  // CircleAvatar untuk menampilkan foto mahasiswa
                   CircleAvatar(
                     radius: 70,
                     backgroundColor: Colors.white,
@@ -59,6 +64,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(height: 5),
+                  // Menampilkan nama mahasiswa
                   Text(
                     'Bastian Nazaromi',
                     style: TextStyle(
@@ -68,6 +74,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(height: 10),
+                  // Menampilkan NIM mahasiswa
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -90,6 +97,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   SizedBox(height: 10),
+                  // Menampilkan Fakultas mahasiswa
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -114,6 +122,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+            // Tombol untuk navigasi ke halaman ListviewPage
             Padding(
               padding: const EdgeInsets.all(20),
               child: Row(
@@ -123,6 +132,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       Navigator.push(
                           context,
+                          // Ketika tombol ditekan, aplikasi akan menuju ke halaman ListviewPage.
                           MaterialPageRoute(
                             builder: (context) => const ListviewPage(),
                           ));

@@ -7,8 +7,10 @@ class ItemWidget extends StatelessWidget {
   final String tanggal;
   final String stok;
   final String terjual;
-  final VoidCallback onDelete;
-  final VoidCallback onEdit;
+  final VoidCallback
+      onDelete; // Fungsi yang akan dipanggil saat tombol hapus ditekan
+  final VoidCallback
+      onEdit; // Fungsi yang akan dipanggil saat area widget ditekan
 
   const ItemWidget({
     super.key,
@@ -25,7 +27,7 @@ class ItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onEdit,
+      onTap: onEdit, // Menjalankan fungsi onEdit saat widget ditekan
       child: Container(
         width: double.infinity,
         margin: const EdgeInsets.all(10),
@@ -54,7 +56,8 @@ class ItemWidget extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: onDelete,
+                  onTap:
+                      onDelete, // Menjalankan fungsi onDelete saat ikon hapus ditekan
                   child: const Icon(
                     Icons.delete,
                     color: Colors.redAccent,

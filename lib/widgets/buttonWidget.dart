@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
-  final String title;
-  final VoidCallback? onTap;
+  final String title; // Teks yang ditampilkan pada tombol
+  final VoidCallback? onTap; // Fungsi yang akan dipanggil saat tombol ditekan
+
   const ButtonWidget({super.key, required this.title, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap, // Memanggil fungsi saat tombol ditekan
       child: Container(
-        width: double.infinity,
-        height: 50,
+        width:
+            double.infinity, // Lebar tombol penuh di sepanjang sumbu horisontal
+        height: 50, // Tinggi tombol
         decoration: BoxDecoration(
-          color: Colors.deepOrange,
-          borderRadius: BorderRadius.circular(5),
+          color: Colors.deepOrange, // Warna latar belakang tombol
+          borderRadius: BorderRadius.circular(5), // Radius sudut tombol
         ),
         child: Center(
           child: Text(
-            title,
+            title, // Menampilkan teks pada tombol
             style: const TextStyle(
-              fontSize: 18,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+              fontSize: 18, // Ukuran teks
+              color: Colors.white, // Warna teks
+              fontWeight: FontWeight.bold, // Ketebalan teks
             ),
           ),
         ),

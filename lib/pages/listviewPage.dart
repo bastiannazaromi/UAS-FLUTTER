@@ -11,6 +11,7 @@ import 'package:uas00045/widgets/itemWidget.dart';
 
 import 'package:http/http.dart' as client;
 
+// Deklarasi class ListviewPage sebagai StatefulWidget
 class ListviewPage extends StatefulWidget {
   const ListviewPage({super.key});
 
@@ -18,10 +19,13 @@ class ListviewPage extends StatefulWidget {
   State<ListviewPage> createState() => _ListviewPageState();
 }
 
+// Deklarasi state untuk ListviewPage
 class _ListviewPageState extends State<ListviewPage> {
+  // Mengambil data dari koleksi 'materialbarang' di Firestore
   Stream<QuerySnapshot>? materialBarangs =
       FirebaseFirestore.instance.collection('materialbarang').snapshots();
 
+  // Fungsi untuk menghapus data menggunakan HTTP POST request ke server lokal
   Future<SuccessModel> deleteData(String kode_barang) async {
     final response = await client
         .post(Uri.parse('http://192.168.33.7/ppb/hapus.php'), body: {
@@ -47,29 +51,34 @@ class _ListviewPageState extends State<ListviewPage> {
         stream: materialBarangs,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
+            // Menampilkan indikator loading ketika data sedang diambil
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
           if (snapshot.hasError) {
+            // Menampilkan pesan error jika ada kesalahan saat mengambil data
             return const Center(
               child: Text("Error"),
             );
           }
 
           if (snapshot.hasData == false) {
+            // Menampilkan pesan jika data tidak ditemukan
             return const Center(
               child: Text("Data tidak ditemukan"),
             );
           }
 
           if (snapshot.data!.docs.isEmpty) {
+            // Menampilkan pesan jika data kosong
             return const Center(
               child: Text("Data tidak ditemukan"),
             );
           }
 
+          // Menampilkan data dalam bentuk ListView
           return ListView(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
@@ -82,6 +91,7 @@ class _ListviewPageState extends State<ListviewPage> {
                 stok: data['stok'],
                 terjual: data['terjual'],
                 onDelete: () {
+                  // Menghapus data dari Firestore dan server lokal
                   document.reference.delete();
                   deleteData(data['kode_barang']);
                   Fluttertoast.showToast(
@@ -90,6 +100,7 @@ class _ListviewPageState extends State<ListviewPage> {
                   );
                 },
                 onEdit: () {
+                  // Navigasi ke halaman EditPage untuk mengedit data
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -120,6 +131,7 @@ class _ListviewPageState extends State<ListviewPage> {
           color: Colors.white,
         ),
         onPressed: () {
+          // Navigasi ke halaman TambahPage untuk menambahkan data baru
           Navigator.push(
             context,
             MaterialPageRoute(
